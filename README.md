@@ -2,11 +2,11 @@ Serpentity is a simple entity framework inspired by Ash.
 
 Usage:
 
-require('serpentity');
+    require('serpentity');
 
 ## Instantiating an engine
 
-var engine = Serpentity();
+    var engine = Serpentity();
 
 Add entities or systems:
 
@@ -70,21 +70,21 @@ that comply with that API
 
 Systems are called on every update, and they use components through nodes.
 
-Class("TestSystem").inherits(Serpentity.System)({
-    prototype : {
-        added : function added(engine){
-            this.nodeList = engine.getNodes(MovementNode);
-        },
-        removed : function removed(engine){
-            this.nodeList = undefined;
+    Class("TestSystem").inherits(Serpentity.System)({
+        prototype : {
+            added : function added(engine){
+                this.nodeList = engine.getNodes(MovementNode);
+            },
+            removed : function removed(engine){
+                this.nodeList = undefined;
+            }
+            update : function update(dt){
+                this.nodeList.forEach(function (node) {
+                    console.log("Current position is: " + node.position.x + "," + node.position.y);
+                });
+            }
         }
-        update : function update(dt){
-            this.nodeList.forEach(function (node) {
-                console.log("Current position is: " + node.position.x + "," + node.position.y);
-            });
-        }
-    }
-});
+    });
 
 ## That's it
 

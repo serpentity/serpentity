@@ -1,7 +1,7 @@
 {
   "name" : "serpentity",
   "description" : "A simple entity frameowrk inspired by ash",
-  "version" : "0.0.1",
+  "version" : "0.1.0",
   "contributors" : [
     {
       "name"  : "Ben Beltran",
