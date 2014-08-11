@@ -1,6 +1,6 @@
 # Serpentity
 
-Serpentity is a simple entity framework inspired by Ash.
+Serpentity is a simple entity framework inspired by [Ash][ash].
 
 Usage:
 
@@ -94,6 +94,9 @@ Just run `engine.update(dt)` in your game loop :D
 
 ## TO-DO
 
+* Priorities
 * Removing components
 * Implement the ashteroids demo (Serpentoids)
 * Actually check performance
+
+[ash]: http://www.ashframework.org/
