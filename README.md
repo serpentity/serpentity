@@ -1,3 +1,5 @@
+# Serpentity
+
 Serpentity is a simple entity framework inspired by Ash.
 
 Usage:
