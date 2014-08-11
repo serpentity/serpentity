@@ -1,0 +1,26 @@
+{
+  "name" : "serpentity",
+  "description" : "A simple entity frameowrk inspired by ash",
+  "version" : "0.0.1",
+  "contributors" : [
+    {
+      "name"  : "Ben Beltran",
+      "email" : "ben@nsovocal.com",
+      "url" : "http://nsovocal.com"
+    }
+  ],
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/benbeltran/serpentity.git"
+  },
+  "dependencies" : {
+    "neon" : "2.0.x",
+    "tellurium" : "2.0.x"
+  },
+  "devDependencies" : {
+    "colors" : "0.6.2"
+  },
+  "engines" : { "node" : ">= 0.10.0" },
+  "main" : "./lib/serpentity/serpentity.js"
+}
+
