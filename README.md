@@ -10,10 +10,11 @@ Usage:
 
     var engine = Serpentity();
 
-Add entities or systems:
+Add entities or systems, systems are added with a priority (the smaller
+the number, the earlier it will be called):
 
     engine.addEntity(entityFactory());
-    engine.addSystem(new GameSystem());
+    engine.addSystem(new GameSystem(), priority);
 
 Update all systems:
 
@@ -94,7 +95,6 @@ Just run `engine.update(dt)` in your game loop :D
 
 ## TO-DO
 
-* Priorities
 * Removing components
 * Implement the ashteroids demo (Serpentoids)
 * Actually check performance

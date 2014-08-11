@@ -39,7 +39,52 @@ Class("TestSystem").inherits(Serpentity.System)({
     }
 });
 var testSystem = new TestSystem();
-console.log("TestSystem: " + "CREATE OK".green)
+
+Class("LowProTestSystem").inherits(Serpentity.System)({
+    prototype : {
+        added : function added(engine) {
+            this.testNodes = engine.getNodes(TestNode);
+            console.log("System added callback: " + "EXEC OK".green);
+        },
+
+        removed : function removed(engine) {
+            this.testNodes = null;
+            console.log("System removed callback: " + "EXEC OK".green);
+        },
+
+        update : function update(dt) {
+            this.testNodes.forEach(function (node) {
+                console.log("Running Low Priority Node: " + (node.test.testMessage === "test" ? "SYSTEM OK".green : "FAIL".RED));
+            });
+            console.log("System update callback: " + "EXEC OK".green);
+        }
+    }
+});
+var lowProTestSystem = new LowProTestSystem();
+console.log("LowProTestSystem: " + "CREATE OK".green)
+
+Class("MidProTestSystem").inherits(Serpentity.System)({
+    prototype : {
+        added : function added(engine) {
+            this.testNodes = engine.getNodes(TestNode);
+            console.log("System added callback: " + "EXEC OK".green);
+        },
+
+        removed : function removed(engine) {
+            this.testNodes = null;
+            console.log("System removed callback: " + "EXEC OK".green);
+        },
+
+        update : function update(dt) {
+            this.testNodes.forEach(function (node) {
+                console.log("Running Mid Priority Node: " + (node.test.testMessage === "test" ? "SYSTEM OK".green : "FAIL".RED));
+            });
+            console.log("System update callback: " + "EXEC OK".green);
+        }
+    }
+});
+var midProTestSystem = new MidProTestSystem();
+console.log("MidProTestSystem: " + "CREATE OK".green)
 
 
 Class("TestComponent").inherits(Serpentity.Component)({
@@ -62,7 +107,7 @@ console.log("\n## Adding system to the engine".bold.black)
 var engine = new Serpentity();
 console.log("engine: " + "CREATE OK".green)
 
-engine.addSystem(testSystem);
+engine.addSystem(testSystem, 0);
 
 console.log("\n## Running update without any entities".bold.black)
 engine.update(10);
@@ -73,10 +118,18 @@ entity.add(new TestComponent());
 engine.addEntity(entity);
 engine.update(10);
 
+console.log("\n## Adding Low Priority System".bold.black)
+engine.addSystem(lowProTestSystem, 10);
+engine.update(10);
+
+console.log("\n## Adding Mid Priority System".bold.black)
+engine.addSystem(midProTestSystem, 5);
+engine.update(10);
+
 console.log("\n## Removing the system and readding".bold.black)
 engine.removeSystem(testSystem);
 engine.update(10);
-engine.addSystem(testSystem);
+engine.addSystem(testSystem, 0);
 engine.update(10);
 
 console.log("\n## Adding a second entity".bold.black)
