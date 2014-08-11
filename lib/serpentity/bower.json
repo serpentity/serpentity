@@ -7,12 +7,12 @@
   ],
   "description": "A simple entity framework inspired by ash",
   "main": [
-    "./lib/serpentity/serpentity.js",
-    "./lib/serpentity/entity.js",
-    "./lib/serpentity/node.js",
-    "./lib/serpentity/node_collection.js",
-    "./lib/serpentity/component.js",
-    "./lib/serpentity/system.js"
+    "./serpentity.js",
+    "./entity.js",
+    "./node.js",
+    "./node_collection.js",
+    "./component.js",
+    "./system.js"
   ],
   "keywords": [
     "entity"

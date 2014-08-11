@@ -93,6 +93,16 @@ Systems are called on every update, and they use components through nodes.
 
 Just run `engine.update(dt)` in your game loop :D
 
+## Checking it in the frontend (dev).
+
+You can link the bower package (bower.json is in `lib/serpentity/` to
+make paths cleaner), then link it again from the root directory and
+spawn a python server (`python -m SimpleHTTPServer`). The test page
+will be available in `http://localhost:8000/browser_test/`
+
+If you just want to use it, it's available as a bower package!
+
+
 ## TO-DO
 
 * Removing components
