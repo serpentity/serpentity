@@ -10,7 +10,8 @@
     "./dist/serpentity.js"
   ],
   "keywords": [
-    "entity"
+    "entity",
+    "serpentity"
   ],
   "license": "MIT",
   "ignore": [
