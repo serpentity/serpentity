@@ -1,6 +1,6 @@
 {
   "name": "serpentity",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "homepage": "https://github.com/benbeltran/serpentity",
   "authors": [
     "Ben Beltran <ben@nsovocal.com>"
@@ -25,6 +25,8 @@
     "LICENSE",
     "bower.json",
     "README.md",
+    "gulpfile.js",
+    "package.json",
     "lib"
   ],
   "dependencies": {
