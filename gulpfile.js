@@ -12,6 +12,17 @@ gulp.task('build', function() {
               'lib/serpentity/system.js',
           ])
     .pipe(uglify())
+    .pipe(concat('serpentity.min.js'))
+    .pipe(gulp.dest('dist'))
+
+    gulp.src([
+              'lib/serpentity/serpentity.js',
+              'lib/serpentity/entity.js',
+              'lib/serpentity/node.js',
+              'lib/serpentity/node_collection.js',
+              'lib/serpentity/component.js',
+              'lib/serpentity/system.js',
+          ])
     .pipe(concat('serpentity.js'))
     .pipe(gulp.dest('dist'))
 });
