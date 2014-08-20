@@ -1,7 +1,7 @@
 {
   "name": "serpentity",
   "description": "A simple entity framework inspired by ash",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "contributors": [
     {
       "name": "Ben Beltran",

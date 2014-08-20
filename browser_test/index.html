@@ -116,7 +116,7 @@
 
         console.log("\n## Adding system to the engine and updating")
         var entity = new Serpentity.Entity();
-        entity.add(new TestComponent());
+        entity.addComponent(new TestComponent());
         engine.addEntity(entity);
         engine.update(10);
 
@@ -136,7 +136,7 @@
 
         console.log("\n## Adding a second entity")
         var entity = new Serpentity.Entity();
-        entity.add(new TestComponent());
+        entity.addComponent(new TestComponent());
         engine.addEntity(entity);
         engine.update(10);
 

@@ -50,7 +50,7 @@ eventually be consumed by "Systems"
 
 You can add components to entities by using the add method:
 
-    entity.add(new PositionComponent());
+    entity.addComponent(new PositionComponent());
 
 
 Systems can refer to entities by requesting nodes.
@@ -287,7 +287,7 @@ Class(Serpentity, "Entity")({
          *
          * returns true if added, false if already present
          */
-        add : function add(component) {
+        addComponent : function addComponent(component) {
             if (this._componentKeys.indexOf(component.constructor) >= 0) {
                 return false;
             }

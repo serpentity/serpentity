@@ -45,9 +45,9 @@ eventually be consumed by "Systems"
         }
     });
 
-You can add components to entities by using the add method:
+You can add components to entities by using the addComponent method:
 
-    entity.add(new PositionComponent());
+    entity.addComponent(new PositionComponent());
 
 
 Systems can refer to entities by requesting nodes.
