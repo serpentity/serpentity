@@ -1,28 +1,17 @@
-var gulp = require('gulp');
-var uglify = require('gulp-uglify');
-var concat = require('gulp-concat');
+'use strict';
+
+let gulp = require('gulp');
+let concat = require('gulp-concat');
 
 gulp.task('build', function() {
   gulp.src([
-              'lib/serpentity/serpentity.js',
-              'lib/serpentity/entity.js',
-              'lib/serpentity/node.js',
-              'lib/serpentity/node_collection.js',
-              'lib/serpentity/component.js',
-              'lib/serpentity/system.js',
-          ])
-    .pipe(uglify())
-    .pipe(concat('serpentity.min.js'))
-    .pipe(gulp.dest('dist'))
-
-    gulp.src([
-              'lib/serpentity/serpentity.js',
-              'lib/serpentity/entity.js',
-              'lib/serpentity/node.js',
-              'lib/serpentity/node_collection.js',
-              'lib/serpentity/component.js',
-              'lib/serpentity/system.js',
-          ])
+    'lib/serpentity.js',
+    'lib/serpentity/entity.js',
+    'lib/serpentity/node.js',
+    'lib/serpentity/node_collection.js',
+    'lib/serpentity/component.js',
+    'lib/serpentity/system.js'
+  ])
     .pipe(concat('serpentity.js'))
-    .pipe(gulp.dest('dist'))
+    .pipe(gulp.dest('dist'));
 });
