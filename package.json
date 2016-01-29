@@ -1,7 +1,7 @@
 {
   "name": "serpentity",
   "description": "A simple entity framework inspired by ash",
-  "version": "0.1.7",
+  "version": "1.0.0-alpha1",
   "contributors": [
     {
       "name": "Ben Beltran",
@@ -14,17 +14,13 @@
     "url": "https://github.com/rbdr/serpentity.git"
   },
   "dependencies": {
-    "neon": "2.0.x"
   },
   "devDependencies": {
-    "colors": "0.6.2",
-    "tellurium": "2.0.x",
-    "gulp-uglify": "~0.3.1",
-    "gulp": "~3.8.7",
-    "gulp-concat": "~2.3.4"
+    "gulp": "3.9.x",
+    "gulp-concat": "2.6.x"
   },
   "engines": {
-    "node": ">= 0.10.0"
+    "node": ">= 4.0.0"
   },
-  "main": "./lib/serpentity/serpentity.js"
+  "main": "./lib/serpentity.js"
 }
