@@ -1,28 +1,28 @@
-var gulp = require('gulp');
-var uglify = require('gulp-uglify');
-var concat = require('gulp-concat');
+'use strict';
 
-gulp.task('build', function() {
-  gulp.src([
-              'lib/serpentity/serpentity.js',
-              'lib/serpentity/entity.js',
-              'lib/serpentity/node.js',
-              'lib/serpentity/node_collection.js',
-              'lib/serpentity/component.js',
-              'lib/serpentity/system.js',
-          ])
-    .pipe(uglify())
-    .pipe(concat('serpentity.min.js'))
-    .pipe(gulp.dest('dist'))
+const Gulp = require('gulp');
+const Babel = require('gulp-babel');
+const Concat = require('gulp-concat');
+const Rename = require('gulp-rename');
+const Uglify = require('gulp-uglify');
 
-    gulp.src([
-              'lib/serpentity/serpentity.js',
-              'lib/serpentity/entity.js',
-              'lib/serpentity/node.js',
-              'lib/serpentity/node_collection.js',
-              'lib/serpentity/component.js',
-              'lib/serpentity/system.js',
-          ])
-    .pipe(concat('serpentity.js'))
-    .pipe(gulp.dest('dist'))
+Gulp.task('build', function() {
+  Gulp.src([
+    'lib/serpentity.js',
+    'lib/serpentity/entity.js',
+    'lib/serpentity/node.js',
+    'lib/serpentity/node_collection.js',
+    'lib/serpentity/component.js',
+    'lib/serpentity/system.js'
+  ])
+  .pipe(Babel({
+    presets: ['es2015']
+  }))
+  .pipe(Concat('serpentity.js'))
+  .pipe(Gulp.dest('dist'))
+  .pipe(Uglify())
+  .pipe(Rename({
+    suffix: '.min'
+  }))
+  .pipe(Gulp.dest('dist'));
 });
