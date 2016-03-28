@@ -3,6 +3,8 @@
 const Gulp = require('gulp');
 const Babel = require('gulp-babel');
 const Concat = require('gulp-concat');
+const Rename = require('gulp-rename');
+const Uglify = require('gulp-uglify');
 
 Gulp.task('build', function() {
   Gulp.src([
@@ -17,5 +19,10 @@ Gulp.task('build', function() {
     presets: ['es2015']
   }))
   .pipe(Concat('serpentity.js'))
+  .pipe(Gulp.dest('dist'))
+  .pipe(Uglify())
+  .pipe(Rename({
+    suffix: '.min'
+  }))
   .pipe(Gulp.dest('dist'));
 });
