@@ -1,10 +1,11 @@
 'use strict';
 
-let gulp = require('gulp');
-let concat = require('gulp-concat');
+const Gulp = require('gulp');
+const Babel = require('gulp-babel');
+const Concat = require('gulp-concat');
 
-gulp.task('build', function() {
-  gulp.src([
+Gulp.task('build', function() {
+  Gulp.src([
     'lib/serpentity.js',
     'lib/serpentity/entity.js',
     'lib/serpentity/node.js',
@@ -12,6 +13,9 @@ gulp.task('build', function() {
     'lib/serpentity/component.js',
     'lib/serpentity/system.js'
   ])
-    .pipe(concat('serpentity.js'))
-    .pipe(gulp.dest('dist'));
+  .pipe(Babel({
+    presets: ['es2015']
+  }))
+  .pipe(Concat('serpentity.js'))
+  .pipe(Gulp.dest('dist'));
 });
