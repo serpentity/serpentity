@@ -93,9 +93,15 @@ Systems are called on every update, and they use components through nodes.
 Just run `engine.update(dt)` in your game loop :D
 
 */
-let Serpentity = class Serpentity {
 
-  constructor (config) {
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Serpentity = function () {
+  function Serpentity(config) {
+    _classCallCheck(this, Serpentity);
+
     this.systems = [];
     this.entities = [];
     this._nodeCollections = [];
@@ -110,132 +116,156 @@ let Serpentity = class Serpentity {
    *
    * returns true if added succesfully, false if already added
    */
-  addSystem (system, priority) {
-    let lastIndex, found;
 
-    if (this.systems.indexOf(system) >= 0) {
-      return false;
-    }
 
-    system.priority = priority;
+  _createClass(Serpentity, [{
+    key: 'addSystem',
+    value: function addSystem(system, priority) {
+      var lastIndex = void 0,
+          found = void 0;
 
-    found = false;
-    lastIndex = 0;
-
-    this.systems.some(function findPriority(existingSystem, i) {
-      lastIndex = i;
-      if (existingSystem.priority >= system.priority) {
-        found = true;
-        return true;
+      if (this.systems.indexOf(system) >= 0) {
+        return false;
       }
-    });
 
-    if (!found) {
-      lastIndex += 1;
-    }
+      system.priority = priority;
 
-    this.systems.splice(lastIndex, 0, system);
-    system.added(this);
-    return true;
-  }
+      found = false;
+      lastIndex = 0;
 
-  /*
-   * Removes a system from the engine, so its update method will no
-   * longer will be called. Triggers the removed hook.
-   *
-   * returns true if removed succesfully, false if already added
-   */
-  removeSystem (system) {
-    let position;
-
-    position = this.systems.indexOf(system);
-    if (position >= 0) {
-      this.systems[position].removed(this);
-      this.systems.splice(position, 1);
-      return true;
-    }
-
-    return false;
-  }
-
-  /*
-   * Adds an entity to the engine, adds to existing node collections
-   *
-   * returns true if added, false if already there
-   */
-  addEntity (entity) {
-    if (this.entities.indexOf(entity) >= 0) {
-      return false;
-    }
-    this.entities.push(entity);
-
-    this._nodeCollections.forEach(function (collection) {
-      collection.add(entity);
-    });
-
-    return true;
-  }
-
-  /*
-   * Removes entity from system, removing from all node collections
-   *
-   * returns true if removed, false if not present
-   */
-  removeEntity (entity) {
-    let position;
-
-    position = this.entities.indexOf(entity);
-    if (position >= 0) {
-      this._nodeCollections.forEach(function (collection) {
-        collection.remove(entity);
+      this.systems.some(function findPriority(existingSystem, i) {
+        lastIndex = i;
+        if (existingSystem.priority >= system.priority) {
+          found = true;
+          return true;
+        }
       });
 
-      this.entities.splice(position, 1);
+      if (!found) {
+        lastIndex += 1;
+      }
+
+      this.systems.splice(lastIndex, 0, system);
+      system.added(this);
       return true;
     }
 
-    return false;
-  }
+    /*
+     * Removes a system from the engine, so its update method will no
+     * longer will be called. Triggers the removed hook.
+     *
+     * returns true if removed succesfully, false if already added
+     */
 
-  /*
-   * Given a Node Class, retrieves a list of all the nodes for each
-   * applicable entity.
-   */
-  getNodes (nodeType) {
-    let position, nodeCollection;
+  }, {
+    key: 'removeSystem',
+    value: function removeSystem(system) {
+      var position = void 0;
 
-    position = this._nodeCollectionKeys.indexOf(nodeType);
+      position = this.systems.indexOf(system);
+      if (position >= 0) {
+        this.systems[position].removed(this);
+        this.systems.splice(position, 1);
+        return true;
+      }
 
-    if (position >= 0) {
-      return this._nodeCollections[position].nodes;
+      return false;
     }
 
-    nodeCollection = new Serpentity.NodeCollection({
-      type : nodeType
-    });
+    /*
+     * Adds an entity to the engine, adds to existing node collections
+     *
+     * returns true if added, false if already there
+     */
 
-    this._nodeCollectionKeys.push(nodeType);
-    this._nodeCollections.push(nodeCollection);
+  }, {
+    key: 'addEntity',
+    value: function addEntity(entity) {
+      if (this.entities.indexOf(entity) >= 0) {
+        return false;
+      }
+      this.entities.push(entity);
 
-    this.entities.forEach(function (entity) {
-      nodeCollection.add(entity);
-    });
+      this._nodeCollections.forEach(function (collection) {
+        collection.add(entity);
+      });
 
-    return nodeCollection.nodes;
-  }
+      return true;
+    }
 
-  /*
-   * Calls update for every loaded system.
-   */
-  update (dt) {
-    this.systems.forEach(function (system) {
-      system.update(dt);
-    });
-  }
-};
+    /*
+     * Removes entity from system, removing from all node collections
+     *
+     * returns true if removed, false if not present
+     */
+
+  }, {
+    key: 'removeEntity',
+    value: function removeEntity(entity) {
+      var position = void 0;
+
+      position = this.entities.indexOf(entity);
+      if (position >= 0) {
+        this._nodeCollections.forEach(function (collection) {
+          collection.remove(entity);
+        });
+
+        this.entities.splice(position, 1);
+        return true;
+      }
+
+      return false;
+    }
+
+    /*
+     * Given a Node Class, retrieves a list of all the nodes for each
+     * applicable entity.
+     */
+
+  }, {
+    key: 'getNodes',
+    value: function getNodes(nodeType) {
+      var position = void 0,
+          nodeCollection = void 0;
+
+      position = this._nodeCollectionKeys.indexOf(nodeType);
+
+      if (position >= 0) {
+        return this._nodeCollections[position].nodes;
+      }
+
+      nodeCollection = new Serpentity.NodeCollection({
+        type: nodeType
+      });
+
+      this._nodeCollectionKeys.push(nodeType);
+      this._nodeCollections.push(nodeCollection);
+
+      this.entities.forEach(function (entity) {
+        nodeCollection.add(entity);
+      });
+
+      return nodeCollection.nodes;
+    }
+
+    /*
+     * Calls update for every loaded system.
+     */
+
+  }, {
+    key: 'update',
+    value: function update(dt) {
+      this.systems.forEach(function (system) {
+        system.update(dt);
+      });
+    }
+  }]);
+
+  return Serpentity;
+}();
 
 // Add namespaced objects.
-if (typeof module !== 'undefined' && this.module !== module) {
+if (typeof module !== 'undefined' && undefined.module !== module) {
   Serpentity.Component = require('./serpentity/component.js');
   Serpentity.Entity = require('./serpentity/entity.js');
   Serpentity.Node = require('./serpentity/node.js');
@@ -243,10 +273,7 @@ if (typeof module !== 'undefined' && this.module !== module) {
   Serpentity.System = require('./serpentity/system.js');
 
   module.exports = Serpentity;
-} else {
-  window.Serpentity = Serpentity;
 }
-
 'use strict';
 
 /* global Serpentity */
@@ -256,8 +283,14 @@ if (typeof module !== 'undefined' && this.module !== module) {
  * to hold components.
  */
 
-let Entity = class Entity {
-  constructor (config) {
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Entity = function () {
+  function Entity(config) {
+    _classCallCheck(this, Entity);
+
     this._componentKeys = [];
     this._components = [];
 
@@ -269,43 +302,54 @@ let Entity = class Entity {
    *
    * returns true if added, false if already present
    */
-  addComponent (component) {
-    if (this._componentKeys.indexOf(component.constructor) >= 0) {
-      return false;
-    }
-    this._componentKeys.push(component.constructor);
-    this._components.push(component);
-    return true;
-  }
 
-  /*
-   * returns true if component is included, false otherwise
-   */
-  hasComponent (componentClass) {
-    if (this._componentKeys.indexOf(componentClass) >= 0) {
+
+  _createClass(Entity, [{
+    key: 'addComponent',
+    value: function addComponent(component) {
+      if (this._componentKeys.indexOf(component.constructor) >= 0) {
+        return false;
+      }
+      this._componentKeys.push(component.constructor);
+      this._components.push(component);
       return true;
     }
-    return false;
-  }
 
-  /*
-   * returns the component associated with that key
-   */
-  getComponent (componentClass) {
-    let position;
-    position = this._componentKeys.indexOf(componentClass);
-    if (position >= 0) {
-      return this._components[position];
+    /*
+     * returns true if component is included, false otherwise
+     */
+
+  }, {
+    key: 'hasComponent',
+    value: function hasComponent(componentClass) {
+      if (this._componentKeys.indexOf(componentClass) >= 0) {
+        return true;
+      }
+      return false;
     }
-  }
-};
 
-if (typeof module !== 'undefined' && this.module !== module) {
+    /*
+     * returns the component associated with that key
+     */
+
+  }, {
+    key: 'getComponent',
+    value: function getComponent(componentClass) {
+      var position = this._componentKeys.indexOf(componentClass);
+      if (position >= 0) {
+        return this._components[position];
+      }
+    }
+  }]);
+
+  return Entity;
+}();
+
+if (typeof module !== 'undefined' && undefined.module !== module) {
   module.exports = Entity;
 } else {
   Serpentity.Entity = Entity;
 }
-
 'use strict';
 
 /* global Serpentity */
@@ -314,48 +358,59 @@ if (typeof module !== 'undefined' && this.module !== module) {
  * A node describes a set of components in order to describe entities
  * that include them.
  */
-let Node = class Node {
 
-  /*
-   * Returns true if the given entity matches the defined protocol,
-   * false otherwise
-   */
-  static matches (entity) {
-    let property, types;
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-    types = this.types;
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-    for (property in types) {
-      if (types.hasOwnProperty(property)) {
-        let matched, type;
+var Node = function () {
+  _createClass(Node, null, [{
+    key: 'matches',
 
-        matched = false;
-        type = types[property];
-        if (entity.hasComponent(type)) {
-          matched = true;
-        }
-        if (!matched) {
-          return false;
+
+    /*
+     * Returns true if the given entity matches the defined protocol,
+     * false otherwise
+     */
+    value: function matches(entity) {
+      var types = this.types;
+
+      for (var typeName in types) {
+        if (types.hasOwnProperty(typeName)) {
+
+          var matched = false;
+          var type = types[typeName];
+
+          if (entity.hasComponent(type)) {
+            matched = true;
+          }
+
+          if (!matched) {
+            return false;
+          }
         }
       }
+
+      return true;
     }
+  }]);
 
-    return true;
-  }
+  function Node(config) {
+    _classCallCheck(this, Node);
 
-  constructor (config) {
     this.types = {};
 
     Object.assign(this, config || {});
   }
-};
 
-if (typeof module !== 'undefined' && this.module !== module) {
+  return Node;
+}();
+
+if (typeof module !== 'undefined' && undefined.module !== module) {
   module.exports = Node;
 } else {
   Serpentity.Node = Node;
 }
-
 'use strict';
 
 /* global Serpentity */
@@ -368,9 +423,14 @@ if (typeof module !== 'undefined' && this.module !== module) {
  * instances of that class.
  */
 
-let NodeCollection = class NodeCollection {
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-  constructor (config) {
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var NodeCollection = function () {
+  function NodeCollection(config) {
+    _classCallCheck(this, NodeCollection);
+
     this.nodes = [];
     this.type = null;
 
@@ -383,75 +443,106 @@ let NodeCollection = class NodeCollection {
    *
    * Returns true if added, false otherwise.
    */
-  add (entity) {
 
-    if (this.type.matches(entity) && !this._entityExists(entity)) {
-      let node, types, property;
 
-      node = new this.type({});
-      node.entity = entity;
-      types = this.type.types;
+  _createClass(NodeCollection, [{
+    key: 'add',
+    value: function add(entity) {
 
-      for (property in types) {
-        if (types.hasOwnProperty(property)) {
-          node[property] = entity.getComponent(types[property]);
+      if (this.type.matches(entity) && !this._entityExists(entity)) {
+
+        var node = new this.type({});
+        var types = this.type.types;
+
+        node.entity = entity;
+
+        for (var typeName in types) {
+          if (types.hasOwnProperty(typeName)) {
+            node[typeName] = entity.getComponent(types[typeName]);
+          }
+        }
+
+        this.nodes.push(node);
+
+        return true;
+      }
+
+      return false;
+    }
+
+    /*
+     * Removes an entity by removing its related node from the list of nodes
+     *
+     * returns true if it was removed, false otherwise.
+     */
+
+  }, {
+    key: 'remove',
+    value: function remove(entity) {
+      var found = -1;
+
+      this.nodes.forEach(function (node, i) {
+        if (node.entity === entity) {
+          found = i;
+        }
+      });
+
+      if (found >= 0) {
+        this.nodes.splice(found, 1);
+        return true;
+      }
+
+      return false;
+    }
+
+    /*
+     * Checks whether we already have nodes for this entity.
+     */
+
+  }, {
+    key: '_entityExists',
+    value: function _entityExists(entity) {
+      var found = false;
+
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = this.nodes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var node = _step.value;
+
+          if (node.entity === entity) {
+            found = true;
+          }
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
         }
       }
 
-      this.nodes.push(node);
-
-      return true;
+      return found;
     }
+  }]);
 
-    return false;
-  }
+  return NodeCollection;
+}();
 
-  /*
-   * Removes an entity by removing its related node from the list of nodes
-   *
-   * returns true if it was removed, false otherwise.
-   */
-  remove (entity) {
-    let found;
-
-    found = -1;
-    this.nodes.forEach(function (node, i) {
-      if (node.entity === entity) {
-        found = i;
-      }
-    });
-
-    if (found >= 0) {
-      this.nodes.splice(found, 1);
-      return true;
-    }
-
-    return false;
-  }
-
-  /*
-   * Checks whether we already have nodes for this entity.
-   */
-  _entityExists (entity) {
-    let found, node;
-
-    found = false;
-    for (node of this.nodes) {
-      if (node.entity === entity) {
-        found = true;
-      }
-    }
-
-    return found;
-  }
-};
-
-if (typeof module !== 'undefined' && this.module !== module) {
+if (typeof module !== 'undefined' && undefined.module !== module) {
   module.exports = NodeCollection;
 } else {
   Serpentity.NodeCollection = NodeCollection;
 }
-
 'use strict';
 
 /* global Serpentity */
@@ -463,18 +554,19 @@ if (typeof module !== 'undefined' && this.module !== module) {
  * components can be any class whatsoever.
  */
 
-let Component = class Component {
-  constructor (config) {
-    Object.assign(this, config || {});
-  }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Component = function Component(config) {
+  _classCallCheck(this, Component);
+
+  Object.assign(this, config || {});
 };
 
-if (typeof module !== 'undefined' && this.module !== module) {
+if (typeof module !== 'undefined' && undefined.module !== module) {
   module.exports = Component;
 } else {
   Serpentity.Component = Component;
 }
-
 'use strict';
 
 /* global Serpentity */
@@ -487,34 +579,54 @@ if (typeof module !== 'undefined' && this.module !== module) {
  * three methods. They are shown here to document the interface.
  */
 
-let System = class System {
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-  /*
-   * This will be run when the system is added to the engine
-   */
-  added () {
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var System = function () {
+  function System() {
+    _classCallCheck(this, System);
+  }
+
+  _createClass(System, [{
+    key: 'added',
+
+
+    /*
+     * This will be run when the system is added to the engine
+     */
+    value: function added() {}
     // Override with added(engine)
     // Receives an instance of the serpentity engine
-  }
 
-  /*
-   * This will be run when the system is removed from the engine
-   */
-  removed () {
+
+    /*
+     * This will be run when the system is removed from the engine
+     */
+
+  }, {
+    key: 'removed',
+    value: function removed() {}
     // Override with removed(engine)
     // Receives an instance of the serpentity engine
-  }
 
-  /*
-   * This will run every time the engine's update method is called
-   */
-  update () {
-    // Override with update(dt)
-    // Receives a delta of the time
-  }
-};
 
-if (typeof module !== 'undefined' && this.module !== module) {
+    /*
+     * This will run every time the engine's update method is called
+     */
+
+  }, {
+    key: 'update',
+    value: function update() {
+      // Override with update(dt)
+      // Receives a delta of the time
+    }
+  }]);
+
+  return System;
+}();
+
+if (typeof module !== 'undefined' && undefined.module !== module) {
   module.exports = System;
 } else {
   Serpentity.System = System;
