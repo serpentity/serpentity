@@ -160,4 +160,3 @@ if (typeof require === 'function') {
     test(window.Serpentity);
   });
 }
-
