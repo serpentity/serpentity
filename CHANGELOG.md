@@ -4,20 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased] - 2017-04-10
+## [2.0.0] - 2017-04-12
 ### Added
 - Adds hapi eslint config
-- Adds travis
+- Adds travis integration
 - This CHANGELOG
 - A contributing file
-- Uses webpack to generate the bundle
 
 ### Changed
+- Uses webpack to generate the bundle
 - Converts tests to lab
 - Converts to use only commonJS
-
-### Removed
-- Dist files
 
 ## [1.0.0] - 2016-03-28
 ### Changed
@@ -57,3 +54,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 [v0.1.6]: https://github.com/serpentity/serpentity/compare/v0.1.5...v0.1.6
 [v0.1.7]: https://github.com/serpentity/serpentity/compare/v0.1.6...v0.1.7
 [1.0.0]: https://github.com/serpentity/serpentity/compare/v0.1.7...1.0.0
+[2.0.0]: https://github.com/serpentity/serpentity/compare/1.0.0...2.0.0
