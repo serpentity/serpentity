@@ -1,18 +1,14 @@
 # Serpentity
 
-Serpentity is a simple entity framework inspired by Ash.
+Serpentity is a simple entity framework inspired by [Ash][ash].
 
 Usage:
 
-    let Serpentity = require('serpentity');
-
-or:
-
-    <script src="/node_modules/serpentity/dist/serpentity.js"></script>
+    const Serpentity = require('serpentity');
 
 ## Instantiating an engine
 
-    let engine = Serpentity();
+    const engine = new Serpentity();
 
 Add entities or systems, systems are added with a priority (the smaller
 the number, the earlier it will be called):
@@ -33,7 +29,7 @@ Remove entities or systems:
 
 Entities are the basic object of Serpentity, and they do nothing.
 
-    let entity = new Serpentity.Entity();
+    const entity = new Serpentity.Entity();
 
 All the behavior is added through components
 
@@ -42,12 +38,13 @@ All the behavior is added through components
 Components define data that we can add to an entity. This data will
 eventually be consumed by "Systems"
 
-    let PositionComponent = class PositionComponent extends Serpentity.Component {
-      constructor (config) {
-        super(config);
+    const PositionComponent = class PositionComponent extends Serpentity.Component {
+      constructor(config) {
 
-        this.x = this.x || 0;
-        this.y = this.y || 0;
+        this.x = 0;
+        this.y = 0;
+
+        super(config);
       }
     };
 
@@ -63,7 +60,7 @@ Systems can refer to entities by requesting nodes.
 Nodes are sets of components that you define, so your system can require
 entities that always follow the API defined in the node.
 
-    let MovementNode = class MovementNode extends Serpentity.Node;
+    const MovementNode = class MovementNode extends Serpentity.Node;
     MovementNode.position = PositionComponent;
     MovementNode.motion = MotionComponent;
 
@@ -76,16 +73,20 @@ that comply with that API
 
 Systems are called on every update, and they use components through nodes.
 
-    let TestSystem = class TestSystem extends Serpentity.System {
-      added (engine){
+    const TestSystem = class TestSystem extends Serpentity.System {
+      added(engine){
+
         this.nodeList = engine.getNodes(MovementNode);
-      },
-      removed (engine){
+      }
+
+      removed(engine){
+
         this.nodeList = undefined;
       }
-      update (dt){
-        let node;
-        for (node of this.nodeList) {
+
+      update(dt){
+
+        for (const node of this.nodeList) {
           console.log(`Current position is: ${node.position.x},${node.position.y}`);
         }
       }
@@ -95,9 +96,7 @@ Systems are called on every update, and they use components through nodes.
 
 Just run `engine.update(dt)` in your game loop :D
 
-## TO-DO
-
-* Minimize code (Uglify does not support ES6 yet)
-* Check Performance
+![Travis CI Build Status][travis-ci-badge]
 
 [ash]: http://www.ashframework.org/
+[travis-ci-badge]: https://travis-ci.org/serpentity/serpentity.svg?branch=master
