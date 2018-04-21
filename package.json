@@ -1,7 +1,7 @@
 {
   "name": "@serpentity/serpentity",
   "description": "An Entity-Component-System Engine",
-  "version": "2.1.0-alpha1",
+  "version": "2.1.0-alpha2",
   "contributors": [
     {
       "name": "Rubén Beltrán del Río",
