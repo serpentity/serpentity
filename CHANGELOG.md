@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.1.0] - 2017-04-12
+### Added
+- Events dependency
+- nodeAdded and nodeRemoved events
+
+### Changed
+- getNodes returns entire nodeCollection instead of its node property
+- NodeCollection is iterable now
+
 ## [2.0.0] - 2017-04-12
 ### Added
 - Adds hapi eslint config
@@ -55,3 +64,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 [v0.1.7]: https://github.com/serpentity/serpentity/compare/v0.1.6...v0.1.7
 [1.0.0]: https://github.com/serpentity/serpentity/compare/v0.1.7...1.0.0
 [2.0.0]: https://github.com/serpentity/serpentity/compare/1.0.0...2.0.0
+[2.1.0]: https://github.com/serpentity/serpentity/compare/2.0.0...2.1.0
