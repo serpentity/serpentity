@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Events dependency
 - nodeAdded and nodeRemoved events
 
+### Changed
+- getNodes returns entire nodeCollection instead of its node property
+- NodeCollection is iterable now
+
 ## [2.0.0] - 2017-04-12
 ### Added
 - Adds hapi eslint config
