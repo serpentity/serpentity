@@ -1,7 +1,7 @@
 {
   "name": "@serpentity/serpentity",
   "description": "An Entity-Component-System Engine",
-  "version": "2.0.0",
+  "version": "2.1.0-alpha1",
   "contributors": [
     {
       "name": "Rubén Beltrán del Río",
@@ -13,7 +13,9 @@
     "type": "git",
     "url": "https://github.com/serpentity/serpentity.git"
   },
-  "dependencies": {},
+  "dependencies": {
+    "events": "^2.0.0"
+  },
   "devDependencies": {
     "babel-core": "^6.24.1",
     "babel-loader": "^6.4.1",
